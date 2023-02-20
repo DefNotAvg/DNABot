@@ -1,5 +1,10 @@
 {
     "enableForwarding": true,
-    "privateChannelId": 12345,
-    "publicChannelId": 12345
+    "footerIcon": "https://cdn.discordapp.com/icons/793477372169945118/97c87d2228618614a6b3e44666ed409c.webp",
+    "footerText": "Powered by @DefNotAvg",
+    "privateChannelId": 793492741530976288,
+    "publicChannelId": 1076909113629474997,
+    "slickdealsQueries": [
+        "protein"
+    ]
 }

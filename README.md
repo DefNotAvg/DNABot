@@ -82,8 +82,13 @@ To get a local copy up and running follow these simple example steps.
    ```sh
    {
     "enableForwarding": true, # Required | boolean | true to send messages to privateChannelId, requiring manual approval to send to publicChannelId; false to send all messages to publicChannelId
-    "publicChannelId": 12345, # Required | int | channelId to send all messages to if enableForwarding is set to false; if enableForwarding is set to true, manual intervention is needed to send messages from privateChannelId to publicChannelId
-    "privateChannelId": 12345, # Optional | int | channelId to send all messages to if enableForwarding is set to true
+    "footerIcon": "https://cdn.discordapp.com/icons/793477372169945118/97c87d2228618614a6b3e44666ed409c.webp", # Optional | string | image URL to use in Discord embed footer
+    "footerText": "Powered by @DefNotAvg", # Optional | string | text to use in Discord embed footer
+    "publicChannelId": 793492741530976288, # Required | int | channelId to send all messages to if enableForwarding is set to false; if enableForwarding is set to true, manual intervention is needed to send messages from privateChannelId to publicChannelId
+    "privateChannelId": 1076909113629474997, # Optional | int | channelId to send all messages to if enableForwarding is set to true
+    "slickdealsQueries": [
+      "protein"
+    ] # Optional | list[str] | list of queries to scrape Slickdeals for
    }
    ```
 5. Run main.py
@@ -95,7 +100,7 @@ To get a local copy up and running follow these simple example steps.
 <!-- ROADMAP -->
 ## Roadmap
 
-- [ ] Add monitoring for fitness-related deals on popular supplements/items
+- [x] Add monitoring for fitness-related deals on popular supplements/items
 - [ ] Add message forwarding capabilities so that all messages don't need to be visible to all users
 
 See the [open issues](https://github.com/DefNotAvg/DNABot/issues) for a full list of proposed features (and known issues).

@@ -1,9 +1,10 @@
 import os
 import math
+import json
 from time import localtime, strftime
 
 def center(text, padding=' ', length=100, clear=False, display=True):
-	'''Centers text at specified length with specified padding surrounding.
+	'''Center text at specified length with specified padding surrounding.
 
 	Args:
 		text: Text to center.
@@ -30,11 +31,28 @@ def center(text, padding=' ', length=100, clear=False, display=True):
 			return text
 
 def header():
-	'''Clears previous output and displays header text.'''
+	'''Clear previous output and display header text.'''
 	os.system('cls' if os.name == 'nt' else 'clear')
 	center('DNABot by @DefNotAvg')
 	center('-', '-')
 
+def load_from_json(file):
+	'''Load JSON file into a dictionary. If file doesn't exist, blank dictionary is written to file and returned.
+
+	Args:
+		file: JSON filename.
+
+	Returns:
+		Dictionary representation of JSON file contents.
+	'''
+	try:
+		with open(file, 'r') as myfile:
+			return json.load(myfile)
+	except IOError:
+		with open(file, 'w') as myfile:
+			json.dump({}, myfile)
+		return {}
+
 def smart_time():
-	'''Returns the local time in YYYY-MM-DD HH:MM:SS 24hr format.'''
+	'''Return the local time in YYYY-MM-DD HH:MM:SS 24hr format.'''
 	return str(strftime('%Y-%m-%d %H:%M:%S', localtime()))
