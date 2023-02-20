@@ -26,10 +26,22 @@ class MyClient(discord.Client):
 		self.loop.create_task(self.my_background_task())
 	
 	async def on_raw_reaction_add(self, payload):
-		pass
-
-	async def on_message(self, message):
-		pass
+		'''Function to support message forwarding'''
+		if payload.user_id != self.user.id and self.config['enableForwarding'] and payload.channel_id == self.config['privateChannelId'] and str(payload.emoji) == '\U0001F4C8':
+			for collection in self.db.list_collection_names(): # Iterate through collections to find initial message
+				matching_mesage = self.db[collection].find_one({'discordMessages.messageId': payload.message_id})
+				if matching_mesage:
+					scraper = eval(collection + '()') # Find scraper that matches collection name
+					embed = discord.Embed.from_dict(scraper.discord_post_info(matching_mesage)) # Re-create embed
+					channel	= self.get_channel(self.config['publicChannelId'])
+					message = await channel.send(embed=embed)
+					message_info = {
+						'messageId': message.id,
+						'channelId': message.channel.id
+					}
+					discord_messages = matching_mesage['discordMessages'] + [message_info]
+					self.db[collection].update_one(matching_mesage, {'$set': {'discordMessages': discord_messages}}) # Update stored post info
+					break
 
 	async def scrape_slickdeals(self):
 		'''Scrape Slickdeals for queries specified within self.config['slickdealsQueries']'''
@@ -49,6 +61,7 @@ class MyClient(discord.Client):
 					else: # Post to public channel if forwarding is disabled
 						channel	= self.get_channel(self.config['publicChannelId'])
 					message = await channel.send(embed=embed)
+					await message.add_reaction('\U0001F4C8')
 					post['discordMessages'] = [
 						{
 							'messageId': message.id,

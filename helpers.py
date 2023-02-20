@@ -33,6 +33,7 @@ def center(text, padding=' ', length=100, clear=False, display=True):
 def header():
 	'''Clear previous output and display header text.'''
 	os.system('cls' if os.name == 'nt' else 'clear')
+	print('')
 	center('DNABot by @DefNotAvg')
 	center('-', '-')
 

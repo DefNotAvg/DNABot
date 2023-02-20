@@ -101,7 +101,9 @@ To get a local copy up and running follow these simple example steps.
 ## Roadmap
 
 - [x] Add monitoring for fitness-related deals on popular supplements/items
-- [ ] Add message forwarding capabilities so that all messages don't need to be visible to all users
+- [x] Add message forwarding capabilities so that all messages don't need to be visible to all users
+- [ ] Improve upon nearly non-existent error handling
+- [ ] Make message forwarding more robust
 
 See the [open issues](https://github.com/DefNotAvg/DNABot/issues) for a full list of proposed features (and known issues).
 
