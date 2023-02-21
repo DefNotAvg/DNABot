@@ -19,7 +19,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/DefNotAvg/DNABot">
-    <img src="https://avatars.githubusercontent.com/u/26437025?v=4" alt="Logo" width="80" height="80">
+    <img src="https://cdn.discordapp.com/icons/793477372169945118/97c87d2228618614a6b3e44666ed409c.webp" alt="Logo" width="80" height="80">
   </a>
 
 <h3 align="center">DNABot</h3>
@@ -104,6 +104,7 @@ To get a local copy up and running follow these simple example steps.
 - [x] Add message forwarding capabilities so that all messages don't need to be visible to all users
 - [ ] Improve upon nearly non-existent error handling
 - [ ] Make message forwarding more robust
+- [ ] Improve upon removal of affiliate links from Slickdeals scraper
 
 See the [open issues](https://github.com/DefNotAvg/DNABot/issues) for a full list of proposed features (and known issues).
 
