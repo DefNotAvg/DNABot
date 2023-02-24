@@ -102,6 +102,7 @@ To get a local copy up and running follow these simple example steps.
 
 - [x] Add monitoring for fitness-related deals on popular supplements/items
 - [x] Add message forwarding capabilities so that all messages don't need to be visible to all users
+- [ ] Scrape all info from query page instead of each individual post
 - [ ] Improve upon nearly non-existent error handling
 - [ ] Make message forwarding more robust
 - [ ] Improve upon removal of affiliate links from Slickdeals scraper
