@@ -137,17 +137,20 @@ class Slickdeals:
 		Returns:
 			Dictionary containing various post info.
 		'''
-		async with aiohttp.ClientSession(trust_env=True) as session:
-			async with session.get(post_link) as response:
-				soup = BeautifulSoup(await response.text(), 'html.parser')
-				return {
-					'postId': self.post_id(post_link),
-					'title': self.post_title(soup),
-					'price': self.post_price(soup),
-					'dealScore': self.post_deal_score(soup),
-					'link': await self.post_link(soup),
-					'image': self.post_image(soup)
-				}
+		try:
+			async with aiohttp.ClientSession(trust_env=True) as session:
+				async with session.get(post_link) as response:
+					soup = BeautifulSoup(await response.text(), 'html.parser')
+					return {
+						'postId': self.post_id(post_link),
+						'title': self.post_title(soup),
+						'price': self.post_price(soup),
+						'dealScore': self.post_deal_score(soup),
+						'link': await self.post_link(soup),
+						'image': self.post_image(soup)
+					}
+		except aiohttp.client_exceptions.ClientConnectorError:
+			return {}
 
 	def discord_post_info(self, post_info):
 		'''Gather various post info given a Slickdeals post link.
