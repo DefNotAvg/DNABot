@@ -137,20 +137,17 @@ class Slickdeals:
 		Returns:
 			Dictionary containing various post info.
 		'''
-		try:
-			async with aiohttp.ClientSession(trust_env=True) as session:
-				async with session.get(post_link) as response:
-					soup = BeautifulSoup(await response.text(), 'html.parser')
-					return {
-						'postId': self.post_id(post_link),
-						'title': self.post_title(soup),
-						'price': self.post_price(soup),
-						'dealScore': self.post_deal_score(soup),
-						'link': await self.post_link(soup),
-						'image': self.post_image(soup)
-					}
-		except aiohttp.client_exceptions.ClientConnectorError:
-			return {}
+		async with aiohttp.ClientSession(trust_env=True) as session:
+			async with session.get(post_link) as response:
+				soup = BeautifulSoup(await response.text(), 'html.parser')
+				return {
+					'postId': self.post_id(post_link),
+					'title': self.post_title(soup),
+					'price': self.post_price(soup),
+					'dealScore': self.post_deal_score(soup),
+					'link': await self.post_link(soup),
+					'image': self.post_image(soup)
+				}
 
 	def discord_post_info(self, post_info):
 		'''Gather various post info given a Slickdeals post link.
@@ -211,7 +208,7 @@ class Slickdeals:
 		async with aiohttp.ClientSession(trust_env=True) as session:
 			async with session.get(self.query_link, params=params) as response:
 				soup = BeautifulSoup(await response.text(), 'html.parser')
-				post_links = [self.homepage + item.get('href') for item in soup.find_all('a') if item.get('class') and ' '.join(item.get('class')) == self.post_class]
+				post_links = [self.homepage + item.get('href') for item in soup.find_all('a') if item.get('class') and ' '.join(item.get('class')) == self.post_class and not item.get('href').lower().startswith('http')]
 				results = []
 				for link in post_links:
 					post_info = await self.post_info(link)
