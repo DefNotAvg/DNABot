@@ -1,4 +1,6 @@
 import aiohttp
+import certifi
+import ssl
 from bs4 import BeautifulSoup
 from datetime import datetime
 from helpers import load_from_json
@@ -36,6 +38,11 @@ class Slickdeals:
 		self.query_link = 'https://slickdeals.net/newsearch.php'
 		self.sort = sort
 
+	def tcp_connector(self):
+		'''Create aiohttp TCPConnector with SSL context'''
+		ssl_context = ssl.create_default_context(cafile=certifi.where())
+		return aiohttp.TCPConnector(ssl=ssl_context)
+
 	async def unaffiliate_link(self, affiliate_link):
 		'''Convert Slickdeals affiliate link to an unaffilated link.
 
@@ -45,7 +52,7 @@ class Slickdeals:
 		Returns:
 			Unaffiliated link string.
 		'''
-		async with aiohttp.ClientSession(trust_env=True) as session:
+		async with aiohttp.ClientSession(connector=self.tcp_connector()) as session:
 			async with session.get(affiliate_link) as response: # Navigate to affiliate link
 				return str(response.url).split('?')[0] # Remove tracking params from destination link
 
@@ -137,7 +144,7 @@ class Slickdeals:
 		Returns:
 			Dictionary containing various post info.
 		'''
-		async with aiohttp.ClientSession(trust_env=True) as session:
+		async with aiohttp.ClientSession(connector=self.tcp_connector()) as session:
 			async with session.get(post_link) as response:
 				soup = BeautifulSoup(await response.text(), 'html.parser')
 				return {
@@ -205,7 +212,7 @@ class Slickdeals:
 				('pp', pp if pp else self.pp),
 				('sort', sort if sort else self.sort),
 			)
-		async with aiohttp.ClientSession(trust_env=True) as session:
+		async with aiohttp.ClientSession(connector=self.tcp_connector()) as session:
 			async with session.get(self.query_link, params=params) as response:
 				soup = BeautifulSoup(await response.text(), 'html.parser')
 				post_links = [self.homepage + item.get('href') for item in soup.find_all('a') if item.get('class') and ' '.join(item.get('class')) == self.post_class and not item.get('href').lower().startswith('http')]
