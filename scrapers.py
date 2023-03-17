@@ -1,4 +1,5 @@
 import aiohttp
+import asyncio
 import certifi
 import ssl
 from bs4 import BeautifulSoup
@@ -52,9 +53,12 @@ class Slickdeals:
 		Returns:
 			Unaffiliated link string.
 		'''
-		async with aiohttp.ClientSession(connector=self.tcp_connector()) as session:
-			async with session.get(affiliate_link) as response: # Navigate to affiliate link
-				return str(response.url).split('?')[0] # Remove tracking params from destination link
+		try:
+			async with aiohttp.ClientSession(connector=self.tcp_connector()) as session:
+				async with session.get(affiliate_link) as response: # Navigate to affiliate link
+					return str(response.url).split('?')[0] # Remove tracking params from destination link
+		except asyncio.exceptions.TimeoutError:
+			return None
 
 	def post_id(self, post_link):
 		'''Parse Slickdeals postId from a post link.
