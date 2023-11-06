@@ -81,6 +81,7 @@ To get a local copy up and running follow these simple example steps.
 4. Edit config.json to your liking
    ```sh
    {
+    "environmentVariables": "..\\Credentials\\credentials.json", # File where sensitive environment variables are stored
     "enableForwarding": true, # Required | boolean | true to send messages to privateChannelId, requiring manual approval to send to publicChannelId; false to send all messages to publicChannelId
     "footerIcon": "https://cdn.discordapp.com/icons/793477372169945118/97c87d2228618614a6b3e44666ed409c.webp", # Optional | string | image URL to use in Discord embed footer
     "footerText": "Powered by @DefNotAvg", # Optional | string | text to use in Discord embed footer

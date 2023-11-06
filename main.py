@@ -2,10 +2,14 @@ import os
 from discord import Intents
 from logging import WARNING
 from discordbot import MyClient
-from helpers import header, center, smart_time
+from helpers import *
 
 if __name__ == '__main__':
 	header()
+	config = load_from_json('config.json')
+	if not os.getenv('discordToken'):
+		environ = load_from_json(config['environmentVariables'])
+		os.environ['discordToken'] = environ['discordToken']
 	token = os.getenv('discordToken')
 	if token:
 		intents = Intents.all()

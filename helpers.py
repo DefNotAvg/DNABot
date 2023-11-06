@@ -47,10 +47,10 @@ def load_from_json(file):
 		Dictionary representation of JSON file contents.
 	'''
 	try:
-		with open(file, 'r') as myfile:
+		with open(os.path.relpath(file), 'r') as myfile:
 			return json.load(myfile)
 	except IOError:
-		with open(file, 'w') as myfile:
+		with open(os.path.relpath(file), 'w') as myfile:
 			json.dump({}, myfile)
 		return {}
 
