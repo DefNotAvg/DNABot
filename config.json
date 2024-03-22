@@ -1,5 +1,5 @@
 {
-    "environmentVariables": "..\\Credentials\\credentials.json",
+    "environmentVariables": "../Credentials/credentials.json",
     "enableForwarding": true,
     "footerIcon": "https://cdn.discordapp.com/icons/793477372169945118/97c87d2228618614a6b3e44666ed409c.webp",
     "footerText": "Powered by @DefNotAvg",
